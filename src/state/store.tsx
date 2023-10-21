@@ -1,7 +1,7 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {persistReducer, persistStore} from 'redux-persist';
-import {combineReducers} from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import { combineReducers } from 'redux';
 import rootReducer from './reducers/index';
 
 const persistConfig = {
@@ -22,6 +22,8 @@ export const store = configureStore({
       immutableCheck: false,
     }),
 });
+
+export type RootState = ReturnType<typeof store.getState>
 
 export const persistor = persistStore(store, null, async () => {
   // await SplashScreen.preventAutoHideAsync()

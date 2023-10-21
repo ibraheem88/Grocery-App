@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image,FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import CategoryItem from '../components/CategoryItem';
+import { NavigationProp } from '@react-navigation/native';
+import { Product } from '../helpers/types';
+
+type RenderCategoriesProps = {
+  categories: Product[],
+  category: string,
+  navigation: NavigationProp<any>
+}
 
 
-
-
-const RenderCategories = ({ category, categories,navigation }) => {
+const RenderCategories = ({ category, categories, navigation }: RenderCategoriesProps) => {
   const [showAll, setShowAll] = useState(false);
-  const [displayItems,setDisplayItems]=useState()
+  const [displayItems, setDisplayItems] = useState<Product[]>()
 
-useEffect(()=>{
- setDisplayItems(showAll ? categories : categories.slice(0, 3))
-},[showAll])
+  useEffect(() => {
+    setDisplayItems(showAll ? categories : categories.slice(0, 3))
+  }, [showAll])
 
   return (
     <View style={styles.category}>
@@ -24,12 +30,13 @@ useEffect(()=>{
         )}
       </View>
       <FlatList
-      contentContainerStyle={{    paddingHorizontal: 24,}}
-      horizontal
-      data={displayItems}
-      ItemSeparatorComponent={<View  style={{width:28}}/>}
-      renderItem={({item})=><CategoryItem key={item.name} item={item} navigation={navigation} category={category}/>}
-      
+        contentContainerStyle={{ paddingHorizontal: 24 }}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        data={displayItems}
+        //ItemSeparatorComponent={<View style={{ width: 28 }} />}
+        renderItem={({ item }) => <CategoryItem key={item.name} item={item} navigation={navigation} category={category} />}
+
       />
     </View>
   );
@@ -41,7 +48,7 @@ export default RenderCategories
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#E5E5E5"
+    backgroundColor: "#E5E5E5"
   },
   category: {
     paddingTop: 24,
@@ -55,19 +62,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   categoryTitle: {
-    color:'black',
+    color: 'black',
     fontSize: 24,
     fontWeight: '700',
   },
   showAll: {
     fontSize: 10,
     color: 'black',
-    fontWeight:'400'
+    fontWeight: '400'
   },
   listItem: {
-    width:156,
-    borderRadius:12,
-    backgroundColor:'#FFFFFF',
+    width: 156,
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
@@ -79,11 +86,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   itemDetails: {
-    paddingLeft:20,
-    
+    paddingLeft: 20,
+
   },
   name: {
-    color:'black',
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,

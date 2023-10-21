@@ -5,26 +5,31 @@ import Icon2 from 'react-native-vector-icons/FontAwesome'
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import helperSvg from '../helpers/helperSvg';
 import { setCart } from '../state/actions/userActions';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootState } from '../state/store';
+import { RootStackParamList } from '../helpers/types';
 
-export default Detail = ({route,navigation}) => {
-  const dispatch=useDispatch()
-  const {cart}=useSelector(state=>state.user)
+type DetailProps = StackScreenProps<RootStackParamList, 'Detail'>
+
+export default function Detail({ route, navigation }: DetailProps) {
+  const dispatch = useDispatch()
+  const { cart } = useSelector((state: RootState) => state.user)
   const [count, setCount] = useState(0)
-  const {item,category} = route.params
+  const { item, category } = route.params
 
-const handleCart=()=>{
-  const newObj={...item,count}
-  const newCart=[...cart,newObj]
-  dispatch(setCart(newCart))
-  navigation.replace('HomeStack')
+  const handleCart = () => {
+    const newObj = { ...item, count }
+    const newCart = [...cart, newObj]
+    dispatch(setCart(newCart))
+    navigation.replace('HomeStack')
 
-}
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Icon name='chevron-thin-left' size={23} color="black" onPress={()=>navigation.goBack()}/>
+        <Icon name='chevron-thin-left' size={23} color="black" onPress={() => navigation.goBack()} />
         <Icon2 name='heart-o' size={23} color="black" />
       </View>
       <View style={styles.content}>
@@ -40,12 +45,12 @@ const handleCart=()=>{
             <Icon3 name='minus' size={16} color="black" />
           </TouchableOpacity>
           <Text style={styles.counter}>{count}</Text>
-          <TouchableOpacity style={[styles.counterButton,{marginLeft:25,marginRight:0}]} onPress={() => setCount(count + 1)}>
+          <TouchableOpacity style={[styles.counterButton, { marginLeft: 25, marginRight: 0 }]} onPress={() => setCount(count + 1)}>
             <Icon3 name='plus' size={16} color="black" />
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.addToCartButton} onPress={()=>handleCart()}>
+      <TouchableOpacity style={styles.addToCartButton} onPress={() => handleCart()}>
         <Text style={styles.addToCartText}>Add to cart</Text>
       </TouchableOpacity>
     </View>
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addToCartText: {
-    fontSize:20,color:'#FCFEFF'}
-  })
+    fontSize: 20, color: '#FCFEFF'
+  }
+})
 
-   

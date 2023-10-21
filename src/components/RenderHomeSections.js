@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image,FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import CategoryItem from '../components/CategoryItem';
 import RecommendationItem from './RecommendationItem';
 
 
-const RenderHomeSections = ({ category, items,navigation }) => {
+const RenderHomeSections = ({ category, items, navigation }) => {
   const [showAll, setShowAll] = useState(false);
-  const [displayItems,setDisplayItems]=useState()
+  const [displayItems, setDisplayItems] = useState()
 
-useEffect(()=>{
- setDisplayItems(showAll ? items : items.slice(0, 3))
-},[showAll])
+  useEffect(() => {
+    setDisplayItems(showAll ? items : items.slice(0, 3))
+  }, [showAll])
 
   return (
     <View style={styles.category}>
@@ -23,13 +23,14 @@ useEffect(()=>{
         )}
       </View>
       <FlatList
-      contentContainerStyle={{    paddingHorizontal: 24,}}
-      horizontal
-      data={displayItems}
-      ItemSeparatorComponent={<View  style={{width:28}}/>}
-      renderItem={({item})=>category=='Top Products' ? <CategoryItem key={item.name} item={item} category={category} navigation={navigation}/>
-    : <RecommendationItem key={item.name} item={item} category={category} navigation={navigation}/>}
-      
+        contentContainerStyle={{ paddingHorizontal: 24, }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={displayItems}
+        ItemSeparatorComponent={<View style={{ width: 28 }} />}
+        renderItem={({ item }) => category == 'Top Products' ? <CategoryItem key={item.name} item={item} category={category} navigation={navigation} />
+          : <RecommendationItem key={item.name} item={item} category={category} navigation={navigation} />}
+
       />
     </View>
   );
@@ -52,17 +53,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   categoryTitle: {
-    color:'black',
+    color: 'black',
     fontSize: 24,
     fontWeight: '700',
   },
   showAll: {
     fontSize: 10,
     color: 'black',
-    fontWeight:'400'
+    fontWeight: '400'
   },
   name: {
-    color:'black',
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
