@@ -15,6 +15,7 @@ const Categories = ({ navigation }: CategoriesProps) => {
 
       <FlatList
         contentContainerStyle={{ paddingBottom: tabBarHeight + 20 }}
+        showsVerticalScrollIndicator={false}
         data={categories}
         renderItem={({ item }) =>
           <RenderCategories key={item.category} category={item.category} categories={item.items} navigation={navigation} />

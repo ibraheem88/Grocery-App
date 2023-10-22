@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
-import CategoryItem from '../components/CategoryItem';
+import CategoryItem from './CategoryItem';
 import RecommendationItem from './RecommendationItem';
+import { Product } from '../helpers/types';
+import { NavigationProp } from '@react-navigation/native';
 
+type RenderHomeSectionsProp = {
+  items: Product[],
+  category: string,
+  navigation: NavigationProp<any>
+}
 
-const RenderHomeSections = ({ category, items, navigation }) => {
+const RenderHomeSections = ({ category, items, navigation }: RenderHomeSectionsProp) => {
   const [showAll, setShowAll] = useState(false);
-  const [displayItems, setDisplayItems] = useState()
+  const [displayItems, setDisplayItems] = useState<Product[]>()
 
   useEffect(() => {
     setDisplayItems(showAll ? items : items.slice(0, 3))
@@ -27,7 +34,7 @@ const RenderHomeSections = ({ category, items, navigation }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={displayItems}
-        ItemSeparatorComponent={<View style={{ width: 28 }} />}
+        ItemSeparatorComponent={() => <View style={{ width: 28 }} />}
         renderItem={({ item }) => category == 'Top Products' ? <CategoryItem key={item.name} item={item} category={category} navigation={navigation} />
           : <RecommendationItem key={item.name} item={item} category={category} navigation={navigation} />}
 

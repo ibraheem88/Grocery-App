@@ -22,7 +22,7 @@ export default function Detail({ route, navigation }: DetailProps) {
     const newObj = { ...item, count }
     const newCart = [...cart, newObj]
     dispatch(setCart(newCart))
-    navigation.replace('HomeStack')
+    navigation.goBack()
 
   }
 

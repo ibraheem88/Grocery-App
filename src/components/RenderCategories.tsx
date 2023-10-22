@@ -34,7 +34,7 @@ const RenderCategories = ({ category, categories, navigation }: RenderCategories
         showsHorizontalScrollIndicator={false}
         horizontal
         data={displayItems}
-        //ItemSeparatorComponent={<View style={{ width: 28 }} />}
+        ItemSeparatorComponent={() => <View style={{ width: 28 }} />}
         renderItem={({ item }) => <CategoryItem key={item.name} item={item} navigation={navigation} category={category} />}
 
       />

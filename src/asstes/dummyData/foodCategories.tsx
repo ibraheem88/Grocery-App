@@ -1,17 +1,17 @@
 import Fish from '../fish.svg'
 import Vegetables from '../vegetables.svg'
 
-export const foodCategories=[
+export const foodCategories = [
     {
-        category:"All",
+        category: "All",
         item: null
     },
     {
         category: "Fish",
-        item: <Fish/>
+        item: <Fish />
     },
     {
         category: "Vegetables",
-        item: <Vegetables/>
+        item: <Vegetables />
     },
 ]

@@ -12,6 +12,11 @@
       "react-native",
       "jest"
     ],
+    "paths": {
+      "react": [
+        "./node_modules/@types/react"
+      ]
+    },
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,

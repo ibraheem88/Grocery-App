@@ -5,21 +5,25 @@ import Icon3 from 'react-native-vector-icons/AntDesign'
 import helperSvg from '../helpers/helperSvg';
 import { setCart } from '../state/actions/userActions';
 import { useSelector, useDispatch } from 'react-redux';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Product, RootStackParamList } from '../helpers/types';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { MyTabParamList, Product, RootStackParamList, useAppSelector } from '../helpers/types';
 import { RootState } from '../state/store';
 import Lottie from 'lottie-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
-type CartProps = StackScreenProps<RootStackParamList, 'CartScreen'>
+type CartProps = StackScreenProps<RootStackParamList, 'CartScreen'> | BottomTabScreenProps<MyTabParamList, 'Cart'>
 
 
-const Cart = ({ navigation }: CartProps) => {
+
+const Cart = ({ }: CartProps) => {
   const dispatch = useDispatch()
-  const { cart } = useSelector((state: RootState) => state.user)
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
+  const { cart } = useAppSelector((state) => state.user)
   const [loading, setLoading] = useState(false)
 
   const handleDelete = (i: number) => {
-    const newCart = cart.filter((item: Product, index: number) => index !== i)
+    const newCart = cart?.filter((item: Product, index: number) => index !== i)
     dispatch(setCart(newCart))
   }
 
@@ -56,7 +60,7 @@ const Cart = ({ navigation }: CartProps) => {
             </View>
             <View style={{ alignSelf: 'center' }}>
               <Text style={{ color: 'black', fontWeight: 'bold', marginBottom: 8 }}>{item.name}</Text>
-              <Text style={{ color: 'black', fontSize: 10 }}>Total is ${((item.price.replace('$', '') / 1000) * item.weight.replace('g', '')).toFixed(2)} by weight</Text>
+              <Text style={{ color: 'black', fontSize: 10 }}>Total is ${(parseInt(item.price.replace('$', '')) / 1000) * parseInt(item.weight.replace('g', ''))} by weight</Text>
             </View>
             <View style={{ justifyContent: "space-between", flex: 1 }}>
               <Icon3 name='minus' size={16} color="black" style={{ alignSelf: 'flex-end', marginRight: 10, marginTop: 14, padding: 10 }}

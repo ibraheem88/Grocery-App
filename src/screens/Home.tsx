@@ -3,11 +3,13 @@ import { View, FlatList } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import HomeTopContent from '../components/HomeTopContent';
 import RenderHomeSections from '../components/RenderHomeSections';
-import helperSvg from '../helpers/helperSvg';
 import homeSections from '../asstes/dummyData/homeSections';
+import { StackScreenProps } from '@react-navigation/stack';
+import { MyTabParamList } from '../helpers/types';
 
+type HomeProps = StackScreenProps<MyTabParamList, 'Home'>
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation }: HomeProps) => {
 
   const tabBarHeight = useBottomTabBarHeight();
 
